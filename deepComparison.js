@@ -25,3 +25,5 @@ function deepComparison(v1, v2) {
 }
 
 console.log(deepComparison({name: 'Matheus', numberBig: 3}, {name: 'Matheus', number: 3}));
+
+['Oi', 'Mundo'].forEach((e) => console.log(e));
