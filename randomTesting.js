@@ -51,3 +51,12 @@ console.log('FindIndex');
 const array2 = [1, 5, 6, 2, 9, 4];
 console.log(array2.findIndex(e => e > 7)); // 4
 console.log(array2[array2.findIndex(e => e > 7)]) // 9
+
+console.log('Prototype');
+console.log(Object.getPrototypeOf([]));
+console.log(Object.getPrototypeOf({}));
+
+
+console.log('Interator Interface');
+let arr = [1, 2];
+console.log(Array.prototype[iterator]());
