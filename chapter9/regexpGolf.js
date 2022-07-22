@@ -22,3 +22,13 @@ console.log(regex4.match(/\b\w+ious\b/g));
 let regex5 = ' . , \' "';
 
 console.log(regex5.match(/ [\.,'"]/g));
+
+// 6. A word longer than six letters
+let regex6 = 'World Ender Grognost';
+
+console.log(regex6.match(/\b\w{7,}\b/));
+
+// 7. A word without the letter e (or E)
+let regex7 = 'A big frase with some symbols .;," and some others -_-';
+
+console.log(regex7.match(/\b[^eE\s_]+\b/g));
