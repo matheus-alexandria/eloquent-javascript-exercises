@@ -332,4 +332,24 @@ async function locateScalpel(nest) {
   return location;
 }
 
+function scalpelSearch(nest, resolve, curNest) {
+  anyStorage(nest, curNest, "scalpel")
+  .then((location) => {
+    if (location === curNest) {
+      resolve(location)
+      return;
+    }
+    scalpelSearch(nest, resolve, location);
+  });
+}
+
+// No async await
+function locateScalpel2(nest) {
+  return new Promise((resolve, reject) => {
+    let curNest = nest.name;
+    scalpelSearch(nest, resolve, curNest);
+  });
+}
+
 locateScalpel(bigOak).then((value) => console.log(value));
+locateScalpel2(bigOak).then((value) => console.log(value));
