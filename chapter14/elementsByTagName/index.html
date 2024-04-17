@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Build a table</title>
+    <script src="./script.js"></script>
+  </head>
+
+  <body>
+    <select id="selection">
+      <option value="strong">strong</option>
+      <option value="p">p</option>
+      <option value="span">span</option>
+    </select>
+    <button 
+      id="change-color-button"
+      onclick="changeSelectedChildrenColors('father')"
+    >
+      Change tag color
+    </button>
+    <div id="father">
+      <strong>Strong 1</strong>
+      <p>Tag 1</p>
+      <p>Tag 2</p>
+      <p>Tag 3</p>
+      <p>Tag 4</p>
+      <p>Tag 5</p>
+      <span>Um span</span>
+      <strong>Strong 2</strong>
+    </div>
+  </body>
+</html>
