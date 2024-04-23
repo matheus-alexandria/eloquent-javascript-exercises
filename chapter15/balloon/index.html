@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>balloon challenge</title>
+    <script>
+      function blow(event) {
+        const balloon = document.querySelector('p');
+        const curFontSize = Number(balloon.style.fontSize.split('px')[0]);
+        if (event.key === "ArrowUp") {
+          balloon.style.fontSize = `${curFontSize + 2}px`;
+        }
+
+        if (event.key === "ArrowDown") {
+          balloon.style.fontSize = `${curFontSize - 2}px`;
+        }
+
+        if (curFontSize > 150) {
+          balloon.textContent = '💥';
+          document.removeEventListener('keydown', blow);
+        } 
+      }
+
+      document.addEventListener('keydown', blow);
+    </script>
+  </head>
+  <body style="margin: 0; display: flex; align-items: center; justify-content: center;"></body>
+    <p style="font-size: 40px;">🎈</p>
+    <!--💥-->
+  </body>
+</html>
