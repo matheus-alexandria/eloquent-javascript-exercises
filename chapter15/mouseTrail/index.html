@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mouse Trail</title>
+    <style>
+      body {
+        height: 200px;
+        background: black;
+      }
+
+      .dot {
+        height: 20px; width: 20px;
+        background: red;
+        position: absolute;
+        opacity: 1;
+        transition: opacity 0.9s;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      window.addEventListener('mousemove', (event) => {
+        let dot = document.createElement("div");
+        dot.className = "dot";
+        dot.style.left = (event.pageX - 4) + "px";
+        dot.style.top = (event.pageY - 4) + "px";
+        document.body.appendChild(dot);
+        setTimeout(() => {
+          dot.style.opacity = 0;
+        }, 2000)
+
+        setTimeout(() => {
+          document.body.removeChild(dot);
+        }, 3000)
+      })
+    </script>
+  </body>
+</html>
