@@ -1,0 +1,26 @@
+{
+  "name": "eloquentjavascript",
+  "version": "1.0.0",
+  "description": "The list of exercises that I've completed while studying the Eloquent Javacript book",
+  "main": "beanCounting.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matchobas/eloquent-javascript-exercises.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matchobas/eloquent-javascript-exercises/issues"
+  },
+  "homepage": "https://github.com/Matchobas/eloquent-javascript-exercises#readme",
+  "dependencies": {
+    "mime": "^4.0.3"
+  }
+}
