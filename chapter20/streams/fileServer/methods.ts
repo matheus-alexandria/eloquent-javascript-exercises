@@ -20,7 +20,7 @@ methods['GET'] = async function(request: IncomingMessage): Promise<any> {
   }
 
   if (stats.isDirectory()) {
-    return { status: 200, body: (await readdir(path)).join('/n')}
+    return { status: 200, body: (await readdir(path)).join('\n')}
   }
 
   return { body: createReadStream(path), type: mime.getType(path) }
