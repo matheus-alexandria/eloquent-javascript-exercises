@@ -1,6 +1,6 @@
 import mime from "mime";
-import { createReadStream, Stats } from "node:fs";
-import { stat, readdir } from "node:fs/promises";
+import { createReadStream, ReadStream, Stats } from "node:fs";
+import { stat, readdir, rmdir, unlink } from "node:fs/promises";
 import { IncomingMessage } from "node:http";
 import { resolve, sep } from "node:path";
 
@@ -9,7 +9,7 @@ type Handler = (request: IncomingMessage) => Promise<any>;
 export let methods: Record<string, Handler> = Object.create(null);
 const baseDirectory = process.cwd();
 
-methods['GET'] = async function(request: IncomingMessage): Promise<any> {
+methods['GET'] = async function(request: IncomingMessage): Promise<IResponseTemplate> {
   const path = urlPath(`http://localhost:8000${request.url!}`);
   let stats: Stats;
   try {
@@ -26,6 +26,25 @@ methods['GET'] = async function(request: IncomingMessage): Promise<any> {
   return { body: createReadStream(path), type: mime.getType(path) }
 }
 
+methods['DELETE'] = async function(request: IncomingMessage): Promise<IResponseTemplate> {
+  const path = urlPath(`http://localhost:8000${request.url!}`);
+  let stats: Stats;
+  try {
+    stats = await stat(path);
+  } catch (err: any) {
+    if (err.code !== 'ENOENT') throw err;
+    return { status: 204 }
+  }
+
+  if (stats.isDirectory()) {
+    await rmdir(path);
+    return { status: 204 };
+  }
+
+  await unlink(path);
+  return { status: 204 }
+}
+
 
 function urlPath(url: string) {
   try {
@@ -40,3 +59,8 @@ function urlPath(url: string) {
   }
 }
 
+interface IResponseTemplate {
+  body?: ReadStream | string;
+  status?: number;
+  type?: string | null;
+}
