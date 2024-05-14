@@ -1,5 +1,5 @@
 import mime from "mime";
-import { createReadStream, ReadStream, Stats } from "node:fs";
+import { createReadStream, createWriteStream, ReadStream, Stats, WriteStream } from "node:fs";
 import { stat, readdir, rmdir, unlink } from "node:fs/promises";
 import { IncomingMessage } from "node:http";
 import { resolve, sep } from "node:path";
@@ -45,6 +45,12 @@ methods['DELETE'] = async function(request: IncomingMessage): Promise<IResponseT
   return { status: 204 }
 }
 
+methods['PUT'] = async function(request: IncomingMessage): Promise<IResponseTemplate> {
+  const path = urlPath(`http://localhost:8000${request.url!}`);
+  await pipeSteam(request, createWriteStream(path));
+  return { status: 204 };
+}
+
 
 function urlPath(url: string) {
   try {
@@ -57,6 +63,15 @@ function urlPath(url: string) {
   } catch (err) {
     throw err;
   }
+}
+
+function pipeSteam(from: IncomingMessage, to: WriteStream) {
+  return new Promise((resolve, reject) => {
+    from.on('error', reject);
+    to.on('error', reject);
+    to.on('finish', resolve);
+    from.pipe(to);
+  });
 }
 
 interface IResponseTemplate {
